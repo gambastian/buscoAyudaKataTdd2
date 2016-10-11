@@ -35,6 +35,7 @@ class FunctionalTest(TestCase):
         self.browser.get("http://localhost:8000")
         link = self.browser.find_element_by_id('id_register');
         link.click()
+        self.browser.implicitly_wait(5)
 
         nombre = self.browser.find_element_by_id('id_nombre')
         nombre.send_keys('Peter')
@@ -53,8 +54,8 @@ class FunctionalTest(TestCase):
         correo = self.browser.find_element_by_id('id_correo')
         correo.send_keys('test@mail.fake')
 
-        username = self.browser.find_element_by_id('id_username' + str(int(round(time.time() * 1000))))
-        username.send_keys('username')
+        username = self.browser.find_element_by_id('id_username')
+        username.send_keys('username' + str(int(round(time.time() * 1000))))
 
         password = self.browser.find_element_by_id('id_password')
         password.send_keys('password')
@@ -62,7 +63,7 @@ class FunctionalTest(TestCase):
         saveButton = self.browser.find_element_by_id('id_grabar')
         saveButton.click()
 
-        self.browser.implicitly_wait(3)
+        self.browser.implicitly_wait(30)
         span = self.browser.find_element(By.XPATH, "//span[text()='Peter Parker']")
 
         self.assertIn('Peter Parker', span.text)
