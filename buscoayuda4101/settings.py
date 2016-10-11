@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,15 +21,19 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # AWS S3 Credentials
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = 'AWS_ACCESS_KEY_ID'
+AWS_SECRET_ACCESS_KEY = 'AWS_SECRET_ACCESS_KEY'
+AWS_STORAGE_BUCKET_NAME = 'AWS_STORAGE_BUCKET_NAME'
 AWS_PRELOAD_METADATA = True
 AWS_QUERYSTRING_AUTH = False
 
@@ -51,7 +55,7 @@ STATIC_S3_PATH = 'static/'
 
 # Tell the staticfiles app to use S3Boto storage when writing the collected static files (when you run `collectstatic`).
 #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 
 # Application definition
@@ -65,8 +69,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
-    'storages',
-    's3_folder_storage'
+    # 'storages',
+    # 's3_folder_storage'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,16 +109,6 @@ WSGI_APPLICATION = 'buscoayuda4101.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('DB_ENGINE'),
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT')
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = (
     {
@@ -131,6 +125,22 @@ AUTH_PASSWORD_VALIDATORS = (
     },
 )
 
+DATABASES = {
+    'default': {
+        # 'ENGINE': os.environ.get('DB_ENGINE'),
+        # 'NAME': os.environ.get('DB_NAME'),
+        # 'USER': os.environ.get('DB_USER'),
+        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
+        # 'HOST': os.environ.get('DB_HOST'),
+        # 'PORT': os.environ.get('DB_PORT')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'buscoayuda',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -141,8 +151,8 @@ USE_L10N = True
 USE_TZ = True
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

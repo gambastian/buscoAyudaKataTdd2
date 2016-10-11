@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import django_boto.s3.storage
+# import django_boto.s3.storage
 
 
 class Migration(migrations.Migration):
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('aniosExperiencia', models.IntegerField()),
                 ('telefono', models.CharField(max_length=1000)),
                 ('correo', models.CharField(max_length=1000)),
-                ('imagen', models.ImageField(upload_to=b'', verbose_name=django_boto.s3.storage.S3Storage())),
+                # ('imagen', models.ImageField(upload_to=b'', verbose_name=django_boto.s3.storage.S3Storage())),
                 ('tiposDeServicio', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='polls.TiposDeServicio')),
                 ('usuarioId', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

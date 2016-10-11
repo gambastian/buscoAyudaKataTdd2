@@ -1,7 +1,6 @@
 # coding=utf-8
 import datetime
 
-import boto
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core import serializers
@@ -64,7 +63,7 @@ def register(request):
                                       tiposDeServicio=TiposDeServicio.objects.get(pk=request.POST.get('tiposDeServicio')),
                                       telefono=request.POST.get('telefono'),
                                       correo=request.POST.get('correo'),
-                                      imagen=request.FILES['imagen'],
+                                      # imagen=request.FILES['imagen'],
                                       usuarioId=user)
         nuevo_trabajador.save()
 
