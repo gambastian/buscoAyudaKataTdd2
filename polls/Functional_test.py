@@ -46,7 +46,11 @@ class FunctionalTest(TestCase):
         aniosExperiencia = self.browser.find_element_by_id('id_aniosExperiencia')
         aniosExperiencia.send_keys(10)
 
-        self.browser.find_element_by_xpath("//select[@id='id_tiposDeServicio']/option[text()='Reporter']").click()
+        tiposervicio = self.browser.find_element_by_id('id_tiposDeServicio')
+        tiposervicio.click()
+        fisrt_type =  self.browser.find_element_by_css_selector('#id_tiposDeServicio > option:nth-child(2)')
+        fisrt_type.click()
+        #self.browser.find_element_by_xpath("//select[@id='id_tiposDeServicio']/option[text()='Reporter']").click()
 
         telefono = self.browser.find_element_by_id('id_telefono')
         telefono.send_keys(3111234)
