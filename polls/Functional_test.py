@@ -9,9 +9,9 @@ from selenium.webdriver.common.by import By
 
 
 class FunctionalTest(TestCase):
-    
+
     # SERVICE_TYPE = TiposDeServicio(nombre='Reporter')
-    
+
     def setUp(self):
         # settings.configure()
         # self.SERVICE_TYPE.save()
@@ -21,7 +21,7 @@ class FunctionalTest(TestCase):
         prof.set_preference('startup.homepage_welcome_url.additional', 'about:blank')
         prof.set_preference('browser.startup.homepage_override.mstone', 'ignore')
         self.browser = webdriver.Firefox(prof)
-        
+
 
     def tearDown(self):
         # self.SERVICE_TYPE.delete()
@@ -71,3 +71,18 @@ class FunctionalTest(TestCase):
         span = self.browser.find_element(By.XPATH, "//span[text()='Peter Parker']")
 
         self.assertIn('Peter Parker', span.text)
+
+    def test_login_user(self):
+
+        self.browser.get("http://localhost:8000")
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
+
+        self.browser.implicitly_wait(5)
+        user = self.browser.find_element_by_id('id_user')
+        user.send_keys('itaimal')
+
+        password = self.browser.find_element_by_id('id_password')
+        password.send_keys('numerosD16')
+        login_button = self.browser.find_element_by_id('id_login_button')
+        login_button.click()
