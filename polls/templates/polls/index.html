@@ -96,16 +96,14 @@
         {% endif %}
     </div>
 {% endif %}
-{% if user.is_authenticated %}
+{% if user.is_authenticated and not user.is_superuser%}
     <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
-        {% if user.is_authenticated and not user.is_superuser %}
             <li>
                 <a href="#" id="id_comment">
                     <span class="glyphicon glyphicon-comment"></span>
                     Agregar comentario
                 </a>
             </li>
-        {% endif %}
     </ul>
 {% endif %}
 {% include "polls/registro.html" %}
