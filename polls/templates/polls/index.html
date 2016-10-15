@@ -32,7 +32,7 @@
 
             <li><a href="{% url 'principal:editar' idTrabajador=user.id %}" id="id_editar"><span class="glyphicon glyphicon-user"></span> Editar</a></li>
     <li>
-            <a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            <a href="logout" id="id_logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
         </li>
     {% else %}
         <li><a href="#" id="id_register"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>

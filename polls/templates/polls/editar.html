@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Busco Ayuda</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .float-message {
+            position: fixed;
+            top: 1%;
+            width: 100%;
+            z-index: 9999;
+        }
+        /*noinspection CssUnusedSymbol*/
+        .form-group label.error {
+            color: #FB3A3A;
+            display: inline-block;
+            text-align: right;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+
+<!--suppress HtmlUnknownTarget -->
+<form role="form" action="" method="post" enctype="multipart/form-data" id="edit-form"
+      novalidate="novalidate">
+    {% csrf_token %}
+    <div class="modal-body">
+        {% for field in form_trabajador %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="modal-footer btn-toolbar">
+        <button type="submit" id="id_grabar" class="btn btn-default btn-success pull-right">
+            <span class="glyphicon glyphicon-save"></span> Guardar
+        </button>
+        <button type="submit" class="btn btn-default btn-default pull-right" data-dismiss="modal"
+                style="margin-left: 5px">
+            <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+    </div>
+</form>
+
+<!--suppress JSUnresolvedFunction -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var validator = $("#edit-form").validate({
+            rules: {
+                nombre: "required",
+                apellidos: "required",
+                aniosExperiencia: {
+                    min: 0,
+                    required: true,
+                    number: true
+                },
+                tiposDeServicio: {
+                    required: true,
+                    min: 1
+                },
+                telefono: {
+                    required: true,
+                    minlength: 5
+                },
+                correo: {
+                    required: true,
+                    email: true
+                },
+                imagen: "required"
+            },
+            messages: {
+                nombre: "Por favor ingrese su nombre completo",
+                apellidos: "Por favor ingrese sus apellidos",
+                aniosExperiencia: "Por favor indique cuantos a&ntilde;os de experiencia tiene",
+                tiposDeServicio: "Por favor seleccione el tipo de servicio que ofrecer&aacute;",
+                telefono: "Por favor ingrese un tel&eacute;fono v&aacute;alido",
+                correo: "Por favor ingrese un correo v&aacute;lido",
+                imagen: "Por favor suba una foto",
+                confirmar: {
+                    equalTo: "La confirmaci&oacute;n no es v&aacute;lida"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+        $('#imagen').click(function () {
+            alert($('input[type=file]').val());
+            return true;
+        });
+    });
+</script>
+</body>
+</html>
