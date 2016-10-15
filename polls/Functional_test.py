@@ -4,14 +4,14 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+
 # from buscoayuda4101 import settings
 # from polls.models import TiposDeServicio
 
 
 class FunctionalTest(TestCase):
-    
     # SERVICE_TYPE = TiposDeServicio(nombre='Reporter')
-    
+
     def setUp(self):
         # settings.configure()
         # self.SERVICE_TYPE.save()
@@ -21,7 +21,6 @@ class FunctionalTest(TestCase):
         prof.set_preference('startup.homepage_welcome_url.additional', 'about:blank')
         prof.set_preference('browser.startup.homepage_override.mstone', 'ignore')
         self.browser = webdriver.Firefox(prof)
-        
 
     def tearDown(self):
         # self.SERVICE_TYPE.delete()
@@ -55,10 +54,10 @@ class FunctionalTest(TestCase):
         correo.send_keys('test@mail.fake')
 
         username = self.browser.find_element_by_id('id_username')
-        username.send_keys('username' + str(int(round(time.time() * 1000))))
+        username.send_keys('username2')
 
         password = self.browser.find_element_by_id('id_password')
-        password.send_keys('password')
+        password.send_keys('Password1234')
 
         saveButton = self.browser.find_element_by_id('id_grabar')
         saveButton.click()
@@ -79,3 +78,26 @@ class FunctionalTest(TestCase):
         fullName = self.browser.find_element(By.XPATH, "//h2[text()='Peter Parker']")
 
         self.assertIn('Peter Parker', fullName.text)
+
+    def test_login_user(self):
+        self.browser.get('http://localhost:8000')
+        self.browser.implicitly_wait(5)
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
+
+        self.browser.implicitly_wait(5)
+
+        username = self.browser.find_element_by_id('id_username')
+        username.send_keys('username2')
+
+        password = self.browser.find_element_by_id('id_password')
+        password.send_keys('Password1234')
+
+        login_button = self.browser.find_element_by_id('id_login_button')
+        login_button.click()
+
+        self.browser.implicitly_wait(20)
+
+        mensajeFlotante = self.browser.find_element_by_class_name('float-message')
+        textMensaje = mensajeFlotante.text
+        self.assertTrue(textMensaje.index('SUCCESS: Bienvenido al sistema username2'))
