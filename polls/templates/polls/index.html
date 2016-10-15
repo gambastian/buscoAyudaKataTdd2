@@ -96,11 +96,27 @@
         {% endif %}
     </div>
 {% endif %}
+{% if user.is_authenticated %}
+    <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
+        {% if user.is_authenticated and not user.is_superuser %}
+            <li>
+                <a href="#" id="id_comment">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    Agregar comentario
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
 {% include "polls/registro.html" %}
 {% include "polls/login.html" %}
+{% include "polls/comentario.html" %}
 <!--suppress JSUnresolvedFunction -->
 <script>
     $(document).ready(function () {
+        $('#id_comment').click(function () {
+            $('#comment_modal').modal();
+        });
         $('#id_login').click(function () {
             $('#login_modal').modal();
         });

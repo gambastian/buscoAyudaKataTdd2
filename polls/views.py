@@ -7,7 +7,7 @@ from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Trabajador, TrabajadorForm, UserForm, Comentario, UserLoginForm
+from .models import Trabajador, TrabajadorForm, UserForm, Comentario, UserLoginForm, CommentForm
 from .models import TiposDeServicio
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
@@ -20,10 +20,15 @@ def index(request):
     form_trabajador = TrabajadorForm(request.POST)
     form_usuario = UserForm(request.POST)
     form_usuario_login = UserLoginForm(request.POST)
+    form_comment = CommentForm(request.POST)
 
-    context = {'trabajadores': trabajadores, 'tipos_de_servicios': tipos_de_servicios,
-               'form_trabajador': form_trabajador, 'form_usuario': form_usuario,
-               'form_usuario_login': form_usuario_login, 'base_url': settings.STATIC_URL}
+    context = {'trabajadores': trabajadores,
+               'tipos_de_servicios': tipos_de_servicios,
+               'form_trabajador': form_trabajador,
+               'form_usuario': form_usuario,
+               'form_comment': form_comment,
+               'form_usuario_login':form_usuario_login,
+               'base_url': settings.STATIC_URL}
     return render(request, 'polls/index.html', context)
 
 

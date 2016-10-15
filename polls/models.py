@@ -33,6 +33,19 @@ class Comentario(models.Model):
     correo = models.CharField(max_length=1000)
 
 
+class CommentForm (ModelForm):
+    texto = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Comentario'}),
+        label='Comentario'
+    )
+    comment_email = forms.CharField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo electrónico'}),
+        label='Correo'
+    )
+    class Meta:
+        model = User
+        fields = ['texto', 'comment_email']
+
 class TrabajadorForm(ModelForm):
     nombre = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese sus nombres'})
