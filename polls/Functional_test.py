@@ -154,41 +154,38 @@ class FunctionalTest(TestCase):
 
         self.assertIn('Eddie Brock', span.text)
 
-    def test_6_edit_user(self):
-            self.browser.get('http://localhost:8000')
-            self.browser.implicitly_wait(5)
+    def test_6_register_comment(self):
+        self.browser.get('http://localhost:8000')
+        self.browser.implicitly_wait(5)
 
-            link = self.browser.find_element_by_id('id_login')
-            link.click()
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
 
-            self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(5)
 
-            username = self.browser.find_element_by_id('id_username_login')
-            username.send_keys(self.USER_NAME)
+        username = self.browser.find_element_by_id('id_username_login')
+        username.send_keys(self.USER_NAME)
 
-            password = self.browser.find_element_by_id('id_password_login')
-            password.send_keys(self.PASSWORD)
+        password = self.browser.find_element_by_id('id_password_login')
+        password.send_keys(self.PASSWORD)
 
-            login_button = self.browser.find_element_by_id('id_login_button')
-            login_button.click()
+        login_button = self.browser.find_element_by_id('id_login_button')
+        login_button.click()
 
-            self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(5)
 
-            link = self.browser.find_element_by_id('id_comment')
-            link.click()
+        link = self.browser.find_element_by_id('id_comment')
+        link.click()
 
-            self.browser.implicitly_wait(20)
+        self.browser.implicitly_wait(20)
 
-            texto = self.browser.find_element_by_id('id_texto')
-            texto.send_keys('Este es mi comentario')
+        texto = self.browser.find_element_by_id('id_texto')
+        texto.send_keys('Este es mi comentario')
 
-            comment_email = self.browser.find_element_by_id('id_comment_email')
-            comment_email.send_keys('test@gmail.com')
+        comment_email = self.browser.find_element_by_id('id_comment_email')
+        comment_email.send_keys('test@gmail.com')
 
-            saveButton = self.browser.find_element_by_id('id_save_comment')
-            saveButton.click()
-
-
-
+        saveButton = self.browser.find_element_by_id('id_save_comment')
+        saveButton.click()
 
 
