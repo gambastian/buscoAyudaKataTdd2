@@ -28,11 +28,11 @@ class FunctionalTest(TestCase):
         # self.SERVICE_TYPE.delete()
         self.browser.quit()
 
-    def test_title(self):
+    def test_1_title(self):
         self.browser.get("http://localhost:8000")
         self.assertIn('Busco Ayuda', self.browser.title)
 
-    def test_register_user(self):
+    def test_2_register_user(self):
         self.browser.get("http://localhost:8000")
         link = self.browser.find_element_by_id('id_register');
         link.click()
@@ -69,7 +69,7 @@ class FunctionalTest(TestCase):
 
         self.assertIn('Peter Parker', span.text)
 
-    def test_view_detail(self):
+    def test_3_view_detail(self):
         self.browser.get('http://localhost:8000')
 
         self.browser.implicitly_wait(10)
@@ -81,7 +81,7 @@ class FunctionalTest(TestCase):
 
         self.assertIn('Peter Parker', fullName.text)
 
-    def test_login_user(self):
+    def test_4_login_user(self):
         self.browser.get('http://localhost:8000')
         self.browser.implicitly_wait(5)
         link = self.browser.find_element_by_id('id_login')
@@ -103,3 +103,53 @@ class FunctionalTest(TestCase):
         mensajeFlotante = self.browser.find_element_by_class_name('float-message')
         textMensaje = mensajeFlotante.text
         self.assertTrue(textMensaje.index('SUCCESS: Bienvenido al sistema ' + str(self.USER_NAME)))
+
+    def test_5_edit_user(self):
+        self.browser.get('http://localhost:8000')
+        self.browser.implicitly_wait(5)
+
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
+
+        self.browser.implicitly_wait(5)
+
+        username = self.browser.find_element_by_id('id_username_login')
+        username.send_keys(self.USER_NAME)
+
+        password = self.browser.find_element_by_id('id_password_login')
+        password.send_keys(self.PASSWORD)
+
+        login_button = self.browser.find_element_by_id('id_login_button')
+        login_button.click()
+
+        self.browser.implicitly_wait(5)
+
+        link = self.browser.find_element_by_id('id_editar')
+        link.click()
+
+        nombre = self.browser.find_element_by_id('id_nombre')
+        self.browser.execute_script("arguments[0].value = ''", nombre)
+        nombre.send_keys('Eddie')
+
+        apellidos = self.browser.find_element_by_id('id_apellidos')
+        self.browser.execute_script("arguments[0].value = ''", apellidos)
+        apellidos.send_keys('Brock')
+
+        telefono = self.browser.find_element_by_id('id_telefono')
+        self.browser.execute_script("arguments[0].value = ''", telefono)
+        telefono.send_keys(999999999)
+
+        correo = self.browser.find_element_by_id('id_correo')
+        self.browser.execute_script("arguments[0].value = ''", correo)
+        correo.send_keys('Eddie@mail.fake')
+
+        saveButton = self.browser.find_element_by_id('id_grabar')
+        saveButton.click()
+
+        logoutButton = self.browser.find_element_by_id('id_logout')
+        logoutButton.click()
+
+        self.browser.implicitly_wait(30)
+        span = self.browser.find_element(By.XPATH, "//span[text()='Eddie Brock']")
+
+        self.assertIn('Eddie Brock', span.text)
