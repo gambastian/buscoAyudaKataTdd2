@@ -9,6 +9,7 @@ from django.forms import ModelForm
 
 class TiposDeServicio(models.Model):
     nombre = models.CharField(max_length=1000)
+
     # imagen = models.ImageField(upload_to='services')
 
     def __unicode__(self):
@@ -76,4 +77,19 @@ class UserForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ["username", "password"]
+
+
+class UserLoginForm(ModelForm):
+    username_login = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label='Usuario'
+    )
+    password_login = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label='Contraseña'
+    )
+
+    class Meta:
+        model = User
+        fields = ["username_login", "password_login"]
