@@ -28,8 +28,8 @@ def index(request):
 
 
 def login(request):
-    username = request.POST.get('usrname', '')
-    password = request.POST.get('psw', '')
+    username = request.POST.get('username_login', '')
+    password = request.POST.get('password_login', '')
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         auth.login(request, user)
@@ -51,7 +51,8 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username)
+        user.set_password(password)
         user.first_name = request.POST.get('nombre')
         user.last_name = request.POST.get('apellidos')
         user.email = request.POST.get('correo')

@@ -11,6 +11,8 @@ from selenium.webdriver.common.by import By
 
 class FunctionalTest(TestCase):
     # SERVICE_TYPE = TiposDeServicio(nombre='Reporter')
+    USER_NAME = 'username' + str(3)
+    PASSWORD = 'Password1234'
 
     def setUp(self):
         # settings.configure()
@@ -54,10 +56,10 @@ class FunctionalTest(TestCase):
         correo.send_keys('test@mail.fake')
 
         username = self.browser.find_element_by_id('id_username')
-        username.send_keys('username' + str(int(round(time.time() * 1000))))
+        username.send_keys(self.USER_NAME)
 
         password = self.browser.find_element_by_id('id_password')
-        password.send_keys('Password1234')
+        password.send_keys(self.PASSWORD)
 
         saveButton = self.browser.find_element_by_id('id_grabar')
         saveButton.click()
@@ -88,16 +90,16 @@ class FunctionalTest(TestCase):
         self.browser.implicitly_wait(5)
 
         username = self.browser.find_element_by_id('id_username_login')
-        username.send_keys('username2')
+        username.send_keys(self.USER_NAME)
 
         password = self.browser.find_element_by_id('id_password_login')
-        password.send_keys('Password1234')
+        password.send_keys(self.PASSWORD)
 
         login_button = self.browser.find_element_by_id('id_login_button')
         login_button.click()
 
-        self.browser.implicitly_wait(20)
+        self.browser.implicitly_wait(5)
 
         mensajeFlotante = self.browser.find_element_by_class_name('float-message')
         textMensaje = mensajeFlotante.text
-        self.assertTrue(textMensaje.index('SUCCESS: Bienvenido al sistema username2'))
+        self.assertTrue(textMensaje.index('SUCCESS: Bienvenido al sistema ' + str(self.USER_NAME)))
